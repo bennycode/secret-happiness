@@ -1,6 +1,7 @@
 package secret.happiness
 
 import org.springframework.dao.DataIntegrityViolationException
+import grails.converters.JSON
 
 class AuthorController {
 
@@ -28,6 +29,11 @@ class AuthorController {
 
         flash.message = message(code: 'default.created.message', args: [message(code: 'author.label', default: 'Author'), authorInstance.id])
         redirect(action: "show", id: authorInstance.id)
+    }
+
+    def rest(Long id) {
+        def authorInstance = Author.get(id)
+        render authorInstance as JSON
     }
 
     def show(Long id) {
